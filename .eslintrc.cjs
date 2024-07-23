@@ -26,17 +26,29 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: './tsconfig.json',
+    project: './tsconfig.eslint.json',
   },
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint', 'import', 'react'],
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+  },
   rules: {
     'react/react-in-jsx-scope': 0,
     'react/function-component-definition': 0,
     'react/prop-types': 0,
     'react/require-default-props': 0,
-    '@typescript-eslint/comma-dangle': 0,
-    '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/naming-convention': 0,
+    '@typescript-eslint/comma-dangle': 0,
+    '@typescript-eslint/brace-style': 0,
+    '@typescript-eslint/no-unused-vars': 'warn',
     'linebreak-style': ['error', 'unix'],
+    'import/no-unresolved': 'error',
   },
 };
