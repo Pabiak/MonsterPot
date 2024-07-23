@@ -1,0 +1,22 @@
+@import '../../variables.scss';
+
+.button {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 40px;
+    background-color: $color-yellow;
+    color: $color-white;
+    padding: 1rem 1.5rem;
+    width: 254px;
+    height: 45px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+
+    &__text {
+        font-size: 1.25rem;
+        font-weight: bold;
+        letter-spacing: 0.02em;
+    }
+}
