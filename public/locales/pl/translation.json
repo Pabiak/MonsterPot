@@ -1,3 +1,7 @@
 {
-  "title": "Witaj, pottery 4.0"
+  "parameter": {
+    "humidity": "Wilgotność",
+    "temperature": "Temperatura",
+    "light": "Światło"
+  }
 }

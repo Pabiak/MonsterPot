@@ -1,0 +1,28 @@
+@import '../../variables.scss';
+
+.parameter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  &__icon {
+    color: $color-yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__type {
+    font-size: 1.125rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: $color-black;
+  }
+
+  &__value {
+    @extend .parameter__type;
+    font-size: 1rem;
+  }
+}

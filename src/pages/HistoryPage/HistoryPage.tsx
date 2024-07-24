@@ -1,5 +1,3 @@
-import React from 'react';
-
 const HistoryPage = () => (
   <div>HistoryPage</div>
 );
