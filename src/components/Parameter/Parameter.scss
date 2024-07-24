@@ -3,12 +3,12 @@
 .parameter {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+  align-items: center;;
 
   &__icon {
     color: $color-yellow;
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,10 +19,12 @@
     font-weight: bold;
     letter-spacing: 0.02em;
     color: $color-black;
+    margin-bottom: 1rem;
   }
 
   &__value {
     @extend .parameter__type;
     font-size: 1rem;
+    margin-top: 0.5rem;
   }
 }

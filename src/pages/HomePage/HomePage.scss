@@ -1,0 +1,74 @@
+@import '../../variables.scss';
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0.75rem;
+
+  &__title {
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: $color-white;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2.25rem;
+  }
+  &__flower-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: $color-white;
+  }
+
+  &__last-watering {
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: $color-white;
+  }
+
+  &__card {
+    padding: 0 0.75rem;
+    width: 100%;
+    height: 24rem;
+    background-color: $color-white;
+    border-radius: 35px 35px 0 0;
+    position: absolute;
+    bottom: 84px;
+    left: 0;
+    z-index: -1;
+
+
+  &__flower {
+    position: absolute;
+    top: 0;
+    transform: translateY(-80%);
+    right: 0;
+  }
+
+    &__parameters {
+        margin-top: 80px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__last-update {
+        margin: 0.75rem 0;
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
+        font-weight: 400;
+        color: $color-black;
+
+    }
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  }
+}
