@@ -12,7 +12,7 @@ const HomePage = () => (
       <span className="homepage__last-watering">Ostatnie podlewanie: 12:36</span>
     </div>
     <div className="homepage__card">
-    <img src={FlowerImage} alt="flower" className="homepage__card__flower" />
+      <img src={FlowerImage} alt="flower" className="homepage__card__flower" />
       <div className="homepage__card__parameters">
         <Parameter type={PARAMETER_TYPES.HUMIDITY} value="75%" />
         <Parameter type={PARAMETER_TYPES.LIGHT} value="84%" />

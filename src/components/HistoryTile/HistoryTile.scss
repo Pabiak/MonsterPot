@@ -1,0 +1,94 @@
+@import '../../variables.scss';
+
+.history-tile {
+  display: flex;
+  align-items: center;
+  background-color: $color-white;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+
+  &__icon-container {
+    width: 10%;
+    margin-right: 2rem;
+  }
+
+  &__icon-background {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--watering {
+      background-color: $color-light-blue;
+    }
+
+    &--error {
+      background-color: $color-light-red;
+    }
+  }
+
+  &__icon {
+    &--watering {
+      color: $color-blue;
+      width: 30px;
+      height: 30px;
+    }
+
+    &--error {
+      color: $color-red;
+      width: 16px;
+      height: 20px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 90%;
+  }
+
+  &__top,
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $color-black;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+
+  &__subtext {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: $color-gray;
+    letter-spacing: 0.02em;
+    text-align: left;
+  }
+
+  &__time {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: $color-black;
+    letter-spacing: 0.02em;
+    text-align: left;
+  }
+
+  &__date {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: $color-gray;
+    letter-spacing: 0.02em;
+    text-align: left;
+  }
+}
