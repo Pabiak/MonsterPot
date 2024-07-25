@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "serve": "serve dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "precommit": "lint-staged",
     "preview": "vite preview",
@@ -50,6 +51,7 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-pwa": "^0.20.0",
     "vite-plugin-svgr": "^4.2.0",
     "vitest": "^1.2.2"
   },
