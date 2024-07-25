@@ -3,5 +3,9 @@
     "humidity": "Wilgotność",
     "temperature": "Temperatura",
     "light": "Światło"
+  },
+  "statisticsTile": {
+    "avgTemperature": "Średnia temperatura",
+    "wateringNumber": "Liczba nawodnień"
   }
 }

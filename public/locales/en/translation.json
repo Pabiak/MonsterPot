@@ -3,5 +3,10 @@
     "humidity": "Humidity",
     "temperature": "Temperature",
     "light": "Light"
+  },
+  "statisticsTile": {
+    "avgTemperature": "Average Temperature",
+    "wateringNumber": "Watering Number"
   }
+
 }

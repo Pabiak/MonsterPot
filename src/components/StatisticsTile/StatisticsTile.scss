@@ -1,0 +1,67 @@
+@import '../../variables.scss';
+
+.statistics-tile {
+  width: 150px;
+  height: 150px;
+  background-color: $color-white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+
+  &__icon-background {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--temperature {
+      background-color: $color-light-yellow;
+    }
+
+    &--humidity {
+      background-color: $color-light-blue;
+    }
+  }
+
+  &__icon {
+    &--temperature {
+      color: $color-yellow;
+      width: 40px;
+      height: 40px;
+    }
+
+    &--humidity {
+      color: $color-blue;
+      width: 33px;
+      height: 23px;
+    }
+  }
+
+  &__value {
+    font-size: 1.125rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+
+    &--temperature {
+      color: $color-yellow;
+    }
+
+    &--humidity {
+      color: $color-dark-blue;
+    }
+  }
+
+  &__info {
+    font-size: 0.75rem;
+    color: $color-gray;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+}
