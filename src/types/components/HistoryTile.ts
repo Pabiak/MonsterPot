@@ -4,5 +4,6 @@ export interface IHistoryTileProps {
   type: HISTORY_TILE_TYPE;
   title: string;
   subtext: string;
+  time: string;
   date: string;
 }

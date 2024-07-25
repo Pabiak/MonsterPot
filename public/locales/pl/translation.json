@@ -7,5 +7,14 @@
   "statisticsTile": {
     "avgTemperature": "Średnia temperatura",
     "wateringNumber": "Liczba nawodnień"
+  },
+  "homePage": {
+    "title": "Strona główna",
+    "lastWatering": "Ostatnie nawodnienie: ",
+    "lastUpdate": "Ostatnia aktualizacja: ",
+    "getCurrentData": "Pobierz aktualne dane"
+  },
+  "historyPage": {
+    "title": "Historia"
   }
 }

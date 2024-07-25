@@ -7,7 +7,7 @@ import ErrorIcon from '@/assets/icons/error-icon.svg?react';
 import './HistoryTile.scss';
 
 const HistoryTile = ({
-  type, title, subtext, date
+  type, title, subtext, time, date
 }: IHistoryTileProps) => (
   <div className="history-tile">
     <div className="history-tile__icon-container">
@@ -22,7 +22,7 @@ const HistoryTile = ({
     <div className="history-tile__info">
       <div className="history-tile__top">
         <span className="history-tile__title">{title}</span>
-        <span className="history-tile__time">11:45</span>
+        <span className="history-tile__time">{time}</span>
       </div>
       <div className="history-tile__bottom">
         <span className="history-tile__subtext">{subtext}</span>

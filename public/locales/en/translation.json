@@ -7,6 +7,14 @@
   "statisticsTile": {
     "avgTemperature": "Average Temperature",
     "wateringNumber": "Watering Number"
+  },
+  "homePage": {
+    "title": "Home",
+    "lastWatering": "Last watering: ",
+    "lastUpdate": "Last update: ",
+    "getCurrentData": "Get current data"
+  },
+  "historyPage": {
+    "title": "History"
   }
-
 }
