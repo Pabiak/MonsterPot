@@ -1,4 +1,7 @@
 {
+  "common": {
+    "notificationSent": "Powiadomienie wysłane"
+  },
   "parameter": {
     "humidity": "Wilgotność",
     "temperature": "Temperatura",
@@ -16,5 +19,10 @@
   },
   "historyPage": {
     "title": "Historia"
+  },
+  "statisticsPage": {
+    "title": "Statystyki",
+    "lastWatering": "Ostatnie nawodnienie: ",
+    "hydration": "Nawodnienie w ciągu dnia: "
   }
 }

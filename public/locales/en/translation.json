@@ -1,4 +1,7 @@
 {
+  "common": {
+    "notificationSent": "Notification sent"
+  },
   "parameter": {
     "humidity": "Humidity",
     "temperature": "Temperature",
@@ -16,5 +19,10 @@
   },
   "historyPage": {
     "title": "History"
+  },
+  "statisticsPage": {
+    "title": "Statistics",
+    "lastWatering": "Last watering: ",
+    "hydration": "Hydration during the day: "
   }
 }

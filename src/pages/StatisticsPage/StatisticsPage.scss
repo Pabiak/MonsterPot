@@ -1,7 +1,57 @@
+@import '../../variables.scss';
+
 .statistics-page {
-    padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0.75rem;
+  
+  &__statistics {
     display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+
+    &__tiles {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+    }
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    color: $color-white;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2.25rem;
+  }
+
+  &__card {
+    padding: 0 0.75rem;
+    width: 100%;
+    height: 24rem;
+    background-color: $color-white;
+    border-radius: 35px 35px 0 0;
+    position: absolute;
+    bottom: 84px;
+    left: 0;
+    z-index: -1;
+    padding-top: 1rem;
+
+    &__subtitle {
+        font-size: 1.25rem;
+        letter-spacing: 0.02em;
+        color: $color-black;
+        text-align: center;
+    }
+  }
 }
