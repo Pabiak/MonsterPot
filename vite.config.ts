@@ -15,9 +15,9 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         registerType: 'autoUpdate',
         manifest: {
-          name: 'Pottery4.0',
-          short_name: 'Pottery',
-          description: 'Praca Magisterska - Pottery4.0',
+          name: 'MonsterPot',
+          short_name: 'MonsterPot',
+          description: 'Praca Magisterska - MonsterPot',
           "start_url": "/",
           display: "standalone",
           background_color: "#50B57A",
