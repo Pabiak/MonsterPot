@@ -3,7 +3,7 @@ import axiosInstance from '@/utility/axiosInstance';
 
 
 const useGetSensorsData = () => {
-  const { isPending, error, data, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['sensors'],
     queryFn: async ({ signal }) => {
       const response = await axiosInstance.get(`/sensors`, {
@@ -15,7 +15,7 @@ const useGetSensorsData = () => {
     staleTime: 1000 * 60,
   });
 
-  return { isPending, error, data, refetch };
+  return { data, refetch };
 };
 
 export default useGetSensorsData;

@@ -13,7 +13,7 @@ import './HomePage.scss';
 
 const HomePage = () => {
   const { t } = useTranslation();
-  const {_, __, data, refetch} = useGetSensorsData();
+  const { data, refetch} = useGetSensorsData();
   return (
     <div className="home-page">
       <span className="home-page__title">{t('homePage.title')}</span>
