@@ -51,4 +51,5 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     'import/no-unresolved': 'error',
   },
+  project: path.join(__dirname, "tsconfig.eslint.json"),
 };

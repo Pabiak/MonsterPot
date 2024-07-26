@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
+import sensorsRoutes from './routes/sensors';
+
 //* Configurations
 dotenv.config();
 const app = express();
@@ -21,6 +23,9 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.get('/', (req, res) => {
     res.send('Hello MonsterPot');
 });
+
+//* ROUTES
+app.use('/sensors', sensorsRoutes);
 
 //* MONGOOSE SETUP
 const PORT = process.env.PORT || 6061;
