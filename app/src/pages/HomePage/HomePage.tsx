@@ -7,7 +7,7 @@ import PARAMETER_TYPES from '@/types/enums/components/ParameterTypes';
 import Parameter from '@/components/Parameter/Parameter';
 import Button from '@/components/Button/Button';
 
-import FlowerImage from '@/assets/flower.png';
+import FlowerImage from '@/assets/flower2.png';
 
 import './HomePage.scss';
 
@@ -24,9 +24,9 @@ const HomePage = () => {
       <div className="home-page__card">
         <img src={FlowerImage} alt="flower" className="home-page__card__flower" />
         <div className="home-page__card__parameters">
-          <Parameter type={PARAMETER_TYPES.HUMIDITY} value={`${data?.humidity}%`} />
-          <Parameter type={PARAMETER_TYPES.LIGHT} value={`${data?.light} LUX`} />
-          <Parameter type={PARAMETER_TYPES.TEMPERATURE} value={`${data?.temperature}°C`} />
+          <Parameter type={PARAMETER_TYPES.HUMIDITY} value={`${data?.humidity || '75'}%`} />
+          <Parameter type={PARAMETER_TYPES.LIGHT} value={`${data?.light || '560'} LUX`} />
+          <Parameter type={PARAMETER_TYPES.TEMPERATURE} value={`${data?.temperature || '27'}°C`} />
         </div>
         <div className="home-page__card__last-update">
           {t('homePage.lastUpdate')}
