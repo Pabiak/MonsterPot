@@ -9,5 +9,7 @@
 }
 
 body {
-  background-color: $color-primary;;
+  background-color: $color-primary;
+  touch-action: none;
+  scroll-behavior: none;
 }
