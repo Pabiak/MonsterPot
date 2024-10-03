@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/utility/axiosInstance';
 
-
 const useGetSensorsData = () => {
   const { data, refetch } = useQuery({
     queryKey: ['sensors'],
