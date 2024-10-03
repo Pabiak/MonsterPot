@@ -1,4 +1,4 @@
 export interface IButtonProps {
-  text: string;
+  text: string | JSX.Element;
   onClick: () => void;
 }
