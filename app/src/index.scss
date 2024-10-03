@@ -8,6 +8,11 @@
   font-family: 'Lato', sans-serif;
 }
 
+html {
+  touch-action: none;
+  scroll-behavior: none;
+}
+
 body {
   background-color: $color-primary;
   touch-action: none;
