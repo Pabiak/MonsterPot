@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import useGetSensorsData from '@/api/useGetSensorsData';
+import useGetLastWatering from '@/api/useGetLastWatering';
 
 import PARAMETER_TYPES from '@/types/enums/components/ParameterTypes';
 
@@ -9,17 +10,24 @@ import Button from '@/components/Button/Button';
 
 import FlowerImage from '@/assets/flower2.png';
 
+import getFormattedDate from '@/helpers/formatDate';
+
 import './HomePage.scss';
 
 const HomePage = () => {
   const { t } = useTranslation();
   const { data, refetch} = useGetSensorsData();
+
+  const { data: lastWateringData } = useGetLastWatering();
+
+  const [date, time] = getFormattedDate(lastWateringData?.watering.date) || ["", ""];
   return (
     <div className="home-page">
       <span className="home-page__title">{t('homePage.title')}</span>
       <div className="home-page__flower-info-container">
         <h1 className="home-page__flower-name">Monstera</h1>
         <span className="home-page__last-watering">{t('homePage.lastWatering')}</span>
+        <span className="home-page__last-watering__value">{`${date} ${time}`}</span>
       </div>
       <div className="home-page__card">
         <img src={FlowerImage} alt="flower" className="home-page__card__flower" />

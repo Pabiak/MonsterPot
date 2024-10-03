@@ -18,6 +18,14 @@
     width: 100%;
     margin-bottom: 2.25rem;
   }
+
+  &__flower-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__flower-name {
     font-size: 2.5rem;
     font-weight: bold;
@@ -30,6 +38,14 @@
     font-weight: bold;
     letter-spacing: 0.02em;
     color: $color-white;
+
+    &__value {
+      margin-top: 0.25rem;
+      font-size: 0.70rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      color: $color-white;
+    }
   }
 
   &__card {

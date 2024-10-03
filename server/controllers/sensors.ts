@@ -16,6 +16,15 @@ export const getSensors = async (req: Request, res: Response) => {
     }
 };
 
+export const getLastWatering = async (req: Request, res: Response) => {
+    try {
+        const watering = await Watering.find().sort({ date: -1 }).limit(1);
+        res.status(200).json({ watering: watering[0] });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const getAvgTemperature = async (req: Request, res: Response) => {
     try {
         const temperatures = await Temperature.find();
