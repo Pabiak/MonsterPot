@@ -1,11 +1,10 @@
-import { Response } from 'express';
-
+import { Request, Response } from 'express';
 import Humidity from '../models/Humidity';
 import Temperature from '../models/Temperature';
 import Light from '../models/Light';
 import Watering from '../models/Watering';
 
-export const getSensors = async (res: Response) => {
+export const getSensors = async (req: Request, res: Response) => {
     try {
         //TODO: sample date, change to fetched data from mqtt broker
         const humidity: string = '50';
@@ -18,7 +17,7 @@ export const getSensors = async (res: Response) => {
     }
 };
 
-export const getLastWatering = async (res: Response) => {
+export const getLastWatering = async (req: Request, res: Response) => {
     try {
         const watering = await Watering.find().sort({ date: -1 }).limit(1);
         res.status(200).json({ watering: watering[0] });
@@ -27,7 +26,7 @@ export const getLastWatering = async (res: Response) => {
     }
 }
 
-export const getAvgTemperature = async (res: Response) => {
+export const getAvgTemperature = async (req: Request, res: Response) => {
     try {
         const temperatures = await Temperature.find();
         const avgTemperature = temperatures.reduce((acc, curr) => acc + curr.value, 0) / temperatures.length;
@@ -37,7 +36,7 @@ export const getAvgTemperature = async (res: Response) => {
     }
 }
 
-export const getNumberOfWaterings = async (res: Response) => {
+export const getNumberOfWaterings = async (req: Request, res: Response) => {
     try {
         const count = await Watering.countDocuments();
 
@@ -47,7 +46,7 @@ export const getNumberOfWaterings = async (res: Response) => {
     }
 }
 
-export const loadSampleData = async (res: Response) => {
+export const loadSampleData = async (req, res) => {
     try {
         const sampleData = [
             { value: 50 },
@@ -87,7 +86,7 @@ export const loadSampleData = async (res: Response) => {
     }
 };
 
-export const loadSampleWatering = async (res: Response) => {
+export const loadSampleWatering = async (req: Request, res: Response) => {
     try {
 
         const wateringData = [];
