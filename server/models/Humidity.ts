@@ -9,10 +9,6 @@ const HumiditySchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    time: {
-        type: String,
-        required: true,
-    },
 }, { timestamps: true });
 
 const Humidity = mongoose.model('Humidity', HumiditySchema);

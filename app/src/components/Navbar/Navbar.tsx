@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import PAGES from '@/types/enums/pages/pages';
+
 import HistoryIcon from '@/assets/icons/history-icon.svg?react';
 import LeafIcon from '@/assets/icons/leaf-icon.svg?react';
 import StatisticsIcon from '@/assets/icons/statistics-icon.svg?react';
@@ -18,7 +20,7 @@ const Navbar = () => {
       <div className="navbar__items">
         <button
           type="button"
-          className={`navbar__items__item  ${splitLocation === 'history' ? 'navbar__items__item--active' : ''}`}
+          className={`navbar__items__item  ${splitLocation === PAGES.HISTORY ? 'navbar__items__item--active' : ''}`}
           onClick={() => navigate('/history')}
           aria-label="History"
         >
@@ -26,7 +28,7 @@ const Navbar = () => {
         </button>
         <button
           type="button"
-          className={`navbar__items__item navbar__items__item--homepage  ${splitLocation === '' ? 'navbar__items__item--homepage--active' : ''}`}
+          className={`navbar__items__item navbar__items__item--homepage  ${splitLocation === PAGES.HOME ? 'navbar__items__item--homepage--active' : ''}`}
           onClick={() => navigate('/')}
           aria-label="Home"
         >
@@ -34,7 +36,7 @@ const Navbar = () => {
         </button>
         <button
           type="button"
-          className={`navbar__items__item  ${splitLocation === 'statistics' ? 'navbar__items__item--active' : ''}`}
+          className={`navbar__items__item  ${splitLocation === PAGES.STATISTICS ? 'navbar__items__item--active' : ''}`}
           onClick={() => navigate('/statistics')}
           aria-label="Statistics"
         >
