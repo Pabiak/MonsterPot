@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
+import mqttClientInstance from './mqttClient';
+
 import sensorsRoutes from './routes/sensors';
 
 //* Configurations
@@ -35,3 +37,4 @@ mongoose
         app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
     })
     .catch((error) => console.log(error.message));
+
