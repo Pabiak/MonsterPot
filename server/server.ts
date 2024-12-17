@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
-import mqttClientInstance from './mqttClient';
+import mqttClientInstance from './utils/mqttClient';
 
 import sensorsRoutes from './routes/sensors';
 
@@ -38,5 +38,9 @@ mongoose
     })
     .catch((error) => console.log(error.message));
 
-    // comment
-
+//* MQTT
+mqttClientInstance.subscribe('monsterpot/#', (err) => {
+    if (!err) {
+        console.log('MQTT is listening to all topics under "monsterpot"');
+    }
+});

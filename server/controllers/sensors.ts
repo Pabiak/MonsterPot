@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+
+import { mqttRequest } from '../services/mqttService';
+
 import Humidity from '../models/Humidity';
 import Temperature from '../models/Temperature';
 import Light from '../models/Light';
@@ -6,14 +9,24 @@ import Watering from '../models/Watering';
 
 export const getSensors = async (req: Request, res: Response) => {
     try {
-        //TODO: sample date, change to fetched data from mqtt broker
-        const humidity: string = '50';
-        const temperature: string = '25';
-        const light: string = '100';
+        const result = await mqttRequest('monsterpot/request/sensors', 'monsterpot/sensors') as {
+            humidity: number;
+            temperature: number;
+            light: number;
+        };
 
-        res.status(200).json({ humidity, temperature, light });
+        const now = new Date();
+
+        await Promise.all([
+            Humidity.create({ value: result.humidity, date: now }),
+            Temperature.create({ value: result.temperature, date: now }),
+            Light.create({ value: result.light, date: now }),
+        ]);
+
+        res.status(200).json(result);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        console.error('Error:', error);
+        res.status(504).json({ error });
     }
 };
 
