@@ -7,6 +7,7 @@ import PARAMETER_TYPES from '@/types/enums/components/ParameterTypes';
 
 import Parameter from '@/components/Parameter/Parameter';
 import Button from '@/components/Button/Button';
+import Spinner from '@/components/Spinner/Spinner';
 
 import FlowerImage from '@/assets/flower2.png';
 
@@ -16,11 +17,12 @@ import './HomePage.scss';
 
 const HomePage = () => {
   const { t } = useTranslation();
-  const { data, refetch} = useGetSensorsData();
+  const { data, isLoading, isError, error, refetch} = useGetSensorsData();
 
   const { data: lastWateringData } = useGetLastWatering();
 
   const [date, time] = getFormattedDate(lastWateringData?.watering.date) || ["", ""];
+
   return (
     <div className="home-page">
       <span className="home-page__title">{t('homePage.title')}</span>
@@ -40,8 +42,9 @@ const HomePage = () => {
           {t('homePage.lastUpdate')}
         </div>
         <div className="home-page__card__button">
-          <Button text={t('homePage.getCurrentData')} onClick={refetch} />
+          <Button text={isLoading ? <Spinner /> : t('homePage.getCurrentData')} onClick={refetch} />
         </div>
+        {isError && <div className="home-page__error">{error?.message}</div>}
       </div>
     </div>
   );

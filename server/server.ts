@@ -6,6 +6,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
+import mqttClientInstance from './utils/mqttClient';
+
 import sensorsRoutes from './routes/sensors';
 
 //* Configurations
@@ -35,3 +37,10 @@ mongoose
         app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
     })
     .catch((error) => console.log(error.message));
+
+//* MQTT
+mqttClientInstance.subscribe('monsterpot/#', (err) => {
+    if (!err) {
+        console.log('MQTT is listening to all topics under "monsterpot"');
+    }
+});
