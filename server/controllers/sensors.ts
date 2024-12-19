@@ -6,6 +6,7 @@ import Humidity from '../models/Humidity';
 import Temperature from '../models/Temperature';
 import Light from '../models/Light';
 import Watering from '../models/Watering';
+import History from '../models/History';
 
 export const getSensors = async (req: Request, res: Response) => {
     try {
@@ -59,61 +60,11 @@ export const getNumberOfWaterings = async (req: Request, res: Response) => {
     }
 }
 
-export const loadSampleData = async (req, res) => {
+export const getHistory = async (req: Request, res: Response) => {
     try {
-        const sampleData = [
-            { value: 50 },
-            { value: 60 },
-            { value: 70 },
-            { value: 80 },
-            { value: 90 },
-            { value: 100 }
-        ];
-
-        const humidityData = sampleData.map(entry => {
-            const date = new Date();
-            date.setHours(Math.floor(Math.random() * (20 - 8 + 1)) + 8);
-            return {
-            value: entry.value,
-            date
-            };
-        });
-
-        const lightData = sampleData.map(entry => ({
-            value: entry.value,
-            date: new Date()
-        }));
-
-        const temperatureData = sampleData.map(entry => ({
-            value: entry.value,
-            date: new Date(),
-        }));
-
-        await Humidity.insertMany(humidityData);
-        await Temperature.insertMany(temperatureData);
-        await Light.insertMany(lightData);
-
-        res.status(200).json({ humidity: humidityData, temperature: temperatureData, light: lightData });
+        const history = await History.find();
+        res.status(200).json({ history });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(404).json({ message: error.message });
     }
-};
-
-export const loadSampleWatering = async (req: Request, res: Response) => {
-    try {
-
-        const wateringData = [];
-
-        for (let i = 0; i < 5; i++) {
-            wateringData.push({
-                date: new Date()
-            });
-        }
-
-        await Watering.insertMany(wateringData);
-
-        res.status(200).json({ watering: wateringData });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+}

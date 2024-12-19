@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import useGetAvgTemperature from '@/api/useGetAvgTemperature';
 import useGetLastWatering from '@/api/useGetLastWatering';
+import useGetNumberOfWaterings from '@/api/useGetNumberOfWaterings';
 
 import PARAMETER_TYPES from '@/types/enums/components/ParameterTypes';
 import HISTORY_TILE_TYPE from '@/types/enums/components/HistoryTypes';
@@ -18,6 +19,7 @@ const StatisticsPage = () => {
 
   const { data } = useGetAvgTemperature();
   const { data: lastWateringData } = useGetLastWatering();
+  const { data: numberOfWaterings } = useGetNumberOfWaterings();
 
   const [date, time] = getFormattedDate(lastWateringData?.watering.date) || ["", ""];
 
@@ -26,8 +28,8 @@ const StatisticsPage = () => {
       <span className="statistics-page__title">{t('statisticsPage.title')}</span>
       <div className="statistics-page__statistics">
         <div className="statistics-page__statistics__tiles">
-          <StatisticsTile type={PARAMETER_TYPES.HUMIDITY} value={122} />
-          <StatisticsTile type={PARAMETER_TYPES.TEMPERATURE} value={data?.avgTemperature || 17} />
+          <StatisticsTile type={PARAMETER_TYPES.HUMIDITY} value={numberOfWaterings?.count || 0} />
+          <StatisticsTile type={PARAMETER_TYPES.TEMPERATURE} value={data?.avgTemperature.toFixed(2) || 17} />
         </div>
         <HistoryTile type={HISTORY_TILE_TYPE.WATERING} title={t('statisticsPage.lastWatering')} subtext={t('common.notificationSent')} time={time} date={date} />
       </div>

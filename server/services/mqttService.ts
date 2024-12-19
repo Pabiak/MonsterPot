@@ -1,4 +1,7 @@
 import mqttClient from '../utils/mqttClient';
+import Watering from '../models/Watering';
+import HISTORY_TYPE from '../types/HistoryType';
+import History from '../models/History';
 
 export const mqttRequest = (publishTopic: string, responseTopic: string, timeoutMs = 5000) => {
     return new Promise((resolve, reject) => {
@@ -33,3 +36,31 @@ export const mqttRequest = (publishTopic: string, responseTopic: string, timeout
 
     });
 };
+
+export const listenToMQTTMessages = () => {
+    mqttClient.on('message', async (topic: string, message: Buffer) => {
+      console.log(`Received message on topic ${topic}: ${message.toString()}`);
+  
+      try {
+        const data = JSON.parse(message.toString());
+        //TODO: Move this to an exported function
+        if (topic === 'monsterpot/watering') {
+            const now = new Date();
+            await Watering.create({ date: now });
+            await History.create({ date: now, type: HISTORY_TYPE.WATERING, message: 'Watering completed' });
+        }
+
+        if (topic === 'monsterpot/error/temperature') {
+            const now = new Date();
+            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'too high temperature' });
+        }
+
+        if (topic === 'monsterpot/error/water-level') {
+            const now = new Date();
+            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'water level too low' });
+        }
+      } catch (error) {
+        console.error('Error handling MQTT message:', error);
+      }
+    });
+  };

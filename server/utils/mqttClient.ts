@@ -34,8 +34,4 @@ mqttClientInstance.on("close", () => {
     console.log('MQTT connection closed');
 });
 
-mqttClientInstance.on('message', (topic, message) => {
-    console.log(`Otrzymano wiadomość na ${topic}: ${message.toString()}`);
-  });
-
 export default mqttClientInstance;

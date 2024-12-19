@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import mqttClientInstance from './utils/mqttClient';
 
 import sensorsRoutes from './routes/sensors';
+import { listenToMQTTMessages } from './services/mqttService';
 
 //* Configurations
 dotenv.config();
@@ -44,3 +45,5 @@ mqttClientInstance.subscribe('monsterpot/#', (err) => {
         console.log('MQTT is listening to all topics under "monsterpot"');
     }
 });
+
+listenToMQTTMessages();

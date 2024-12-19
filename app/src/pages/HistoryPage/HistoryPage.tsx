@@ -1,20 +1,33 @@
 import { useTranslation } from 'react-i18next';
 
-import HistoryTile from '@/components/HistoryTile/HistoryTile';
+import useGetHistory from '@/api/useGetHistory';
+
 import HISTORY_TILE_TYPE from '@/types/enums/components/HistoryTypes';
+
+import HistoryTile from '@/components/HistoryTile/HistoryTile';
+
+import getFormattedDate from '@/helpers/formatDate';
 
 import './HistoryPage.scss';
 
 const HistoryPage = () => {
   const { t } = useTranslation();
+  const { data, isLoading, isError, error } = useGetHistory();
   return (
     <div className="history-page">
       <span className="history-page__title">{t('historyPage.title')}</span>
       <div className="history-page__container">
-        <HistoryTile type={HISTORY_TILE_TYPE.WATERING} title="Nawadnianie" subtext="Zakończone sukcesem" time="11:45" date="24 marca, 2024" />
-        <HistoryTile type={HISTORY_TILE_TYPE.ERROR} title="Za wysoka temperatura" subtext="Powiadomienie wysłane" time="11:45" date="24 marca, 2024" />
-        <HistoryTile type={HISTORY_TILE_TYPE.WATERING} title="Nawadnianie" subtext="Zakończone sukcesem" time="11:45" date="24 marca, 2024" />
-        <HistoryTile type={HISTORY_TILE_TYPE.ERROR} title="Niski poziom wody" subtext="Powiadomienie wysłane" time="11:45" date="24 marca, 2024" />
+        {/* TODO: add type, skeleton loading and error handling */}
+        {data?.history.slice().reverse().map((historyItem) => (
+          <HistoryTile
+            key={historyItem._id}
+            type={historyItem.type}
+            title={historyItem.message}
+            subtext={historyItem.type === HISTORY_TILE_TYPE.ERROR ? "Powiadmonienie wysłane" : "Zakończone sukcesem"}
+            date={getFormattedDate(historyItem.date)?.[0] || ""}
+            time={getFormattedDate(historyItem.date)?.[1] || ""}
+          />
+        ))}
       </div>
     </div>
   );
