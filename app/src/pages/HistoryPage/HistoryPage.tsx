@@ -12,18 +12,18 @@ import './HistoryPage.scss';
 
 const HistoryPage = () => {
   const { t } = useTranslation();
-  const { data, isLoading, isError, error } = useGetHistory();
+  const { data } = useGetHistory();
   return (
     <div className="history-page">
       <span className="history-page__title">{t('historyPage.title')}</span>
       <div className="history-page__container">
         {/* TODO: add type, skeleton loading and error handling */}
-        {data?.history.slice().reverse().map((historyItem) => (
+        {data?.history.slice().reverse().map((historyItem: any) => (
           <HistoryTile
             key={historyItem._id}
             type={historyItem.type}
-            title={historyItem.message}
-            subtext={historyItem.type === HISTORY_TILE_TYPE.ERROR ? "Powiadmonienie wysłane" : "Zakończone sukcesem"}
+            title={t(`historyPage.${historyItem.message}`)}
+            subtext={historyItem.type === HISTORY_TILE_TYPE.ERROR ? t("common.notificationSent") : t("historyPage.completed")}
             date={getFormattedDate(historyItem.date)?.[0] || ""}
             time={getFormattedDate(historyItem.date)?.[1] || ""}
           />

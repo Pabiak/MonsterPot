@@ -68,3 +68,19 @@ export const getHistory = async (req: Request, res: Response) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+export const getLatestSensorsData = async (req: Request, res: Response) => {
+    try {
+        const humidity = await Humidity.find().sort({ date: -1 }).limit(1);
+        const temperature = await Temperature.find().sort({ date: -1 }).limit(1);
+        const light = await Light.find().sort({ date: -1 }).limit(1);
+
+        res.status(200).json({
+            humidity: humidity[0]?.value,
+            temperature: temperature[0]?.value,
+            light: light[0]?.value,
+        });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};

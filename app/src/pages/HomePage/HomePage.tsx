@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import useGetSensorsData from '@/api/useGetSensorsData';
+import useGetLatestSensorsData from '@/api/useGetLatestSensorsData';
 import useGetLastWatering from '@/api/useGetLastWatering';
 
 import PARAMETER_TYPES from '@/types/enums/components/ParameterTypes';
@@ -18,6 +19,7 @@ import './HomePage.scss';
 const HomePage = () => {
   const { t } = useTranslation();
   const { data, isLoading, isError, error, refetch} = useGetSensorsData();
+  const { data: latestSensorsData } = useGetLatestSensorsData();
 
   const { data: lastWateringData } = useGetLastWatering();
 
@@ -34,12 +36,9 @@ const HomePage = () => {
       <div className="home-page__card">
         <img src={FlowerImage} alt="flower" className="home-page__card__flower" />
         <div className="home-page__card__parameters">
-          <Parameter type={PARAMETER_TYPES.HUMIDITY} value={`${data?.humidity || '75'}%`} />
-          <Parameter type={PARAMETER_TYPES.LIGHT} value={`${data?.light || '560'} LUX`} />
-          <Parameter type={PARAMETER_TYPES.TEMPERATURE} value={`${data?.temperature || '27'}°C`} />
-        </div>
-        <div className="home-page__card__last-update">
-          {t('homePage.lastUpdate')}
+          <Parameter type={PARAMETER_TYPES.HUMIDITY} value={`${data?.humidity || latestSensorsData?.humidity}%`} />
+          <Parameter type={PARAMETER_TYPES.LIGHT} value={`${data?.light || latestSensorsData?.light} LUX`} />
+          <Parameter type={PARAMETER_TYPES.TEMPERATURE} value={`${data?.temperature || latestSensorsData?.temperature}°C`} />
         </div>
         <div className="home-page__card__button">
           <Button text={isLoading ? <Spinner /> : t('homePage.getCurrentData')} onClick={refetch} />

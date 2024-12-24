@@ -42,22 +42,22 @@ export const listenToMQTTMessages = () => {
       console.log(`Received message on topic ${topic}: ${message.toString()}`);
   
       try {
-        const data = JSON.parse(message.toString());
         //TODO: Move this to an exported function
+        //TODO: add enum
         if (topic === 'monsterpot/watering') {
             const now = new Date();
             await Watering.create({ date: now });
-            await History.create({ date: now, type: HISTORY_TYPE.WATERING, message: 'Watering completed' });
+            await History.create({ date: now, type: HISTORY_TYPE.WATERING, message: 'wateringCompleted' });
         }
 
         if (topic === 'monsterpot/error/temperature') {
             const now = new Date();
-            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'too high temperature' });
+            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'highTemperature' });
         }
 
         if (topic === 'monsterpot/error/water-level') {
             const now = new Date();
-            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'water level too low' });
+            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'lowWaterLevel' });
         }
       } catch (error) {
         console.error('Error handling MQTT message:', error);

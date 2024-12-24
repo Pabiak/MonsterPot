@@ -18,7 +18,11 @@
     "getCurrentData": "Pobierz aktualne dane"
   },
   "historyPage": {
-    "title": "Historia"
+    "title": "Historia",
+    "completed": "Zakończone sukcesem",
+    "lowWaterLevel": "Niski poziom wody",
+    "highTemperature": "Zbyt wysoka temperatura",
+    "wateringCompleted": "Nawodnienie zakończone"
   },
   "statisticsPage": {
     "title": "Statystyki",
