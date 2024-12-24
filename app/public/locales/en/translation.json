@@ -23,6 +23,8 @@
   "statisticsPage": {
     "title": "Statistics",
     "lastWatering": "Last watering: ",
-    "hydration": "Hydration during the day: "
+    "hydration": "Soil humidity during the day",
+    "humidity": "Humidity",
+    "time": "Time"
   }
 }

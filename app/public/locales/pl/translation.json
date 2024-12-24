@@ -27,6 +27,8 @@
   "statisticsPage": {
     "title": "Statystyki",
     "lastWatering": "Ostatnie nawodnienie: ",
-    "hydration": "Nawodnienie w ciągu dnia: "
+    "hydration": "Wilgotność gleby w ciągu dnia",
+    "humidity": "Wilgotność",
+    "time": "Czas"
   }
 }

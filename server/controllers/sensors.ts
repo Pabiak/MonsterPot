@@ -84,3 +84,19 @@ export const getLatestSensorsData = async (req: Request, res: Response) => {
         res.status(404).json({ message: error.message });
     }
 };
+
+export const getStatisticsData = async (req: Request, res: Response) => {
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const humidity = await Humidity.find({ date: { $gte: today } }).sort({ date: 1 }).limit(24);
+
+        // return only value and time
+        const humidityData = humidity.map(h => ({ value: h.value, time: h.date.toISOString().split('T')[1].slice(0, 5)}));
+
+        res.status(200).json({ statistics: humidityData });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};

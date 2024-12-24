@@ -13,6 +13,7 @@ import './HistoryPage.scss';
 const HistoryPage = () => {
   const { t } = useTranslation();
   const { data } = useGetHistory();
+
   return (
     <div className="history-page">
       <span className="history-page__title">{t('historyPage.title')}</span>
