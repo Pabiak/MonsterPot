@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/utility/axiosInstance';
 
 const useGetSensorsData = () => {
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
     queryKey: ['sensors'],
     enabled: false,
     retry: false,
@@ -16,7 +16,7 @@ const useGetSensorsData = () => {
     staleTime: 1000 * 60,
   });
 
-  return { data, isLoading, isError, error, refetch };
+  return { data, isLoading, isError, error, refetch, isFetching };
 };
 
 export default useGetSensorsData;

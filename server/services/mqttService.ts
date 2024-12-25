@@ -2,6 +2,7 @@ import mqttClient from '../utils/mqttClient';
 import Watering from '../models/Watering';
 import HISTORY_TYPE from '../types/HistoryType';
 import History from '../models/History';
+import MQTT_TOPICS from '../types/enums/MqttTopics';
 
 export const mqttRequest = (publishTopic: string, responseTopic: string, timeoutMs = 5000) => {
     return new Promise((resolve, reject) => {
@@ -42,20 +43,18 @@ export const listenToMQTTMessages = () => {
       console.log(`Received message on topic ${topic}: ${message.toString()}`);
   
       try {
-        //TODO: Move this to an exported function
-        //TODO: add enum
-        if (topic === 'monsterpot/watering') {
+        if (topic === MQTT_TOPICS.WATERING) {
             const now = new Date();
             await Watering.create({ date: now });
             await History.create({ date: now, type: HISTORY_TYPE.WATERING, message: 'wateringCompleted' });
         }
 
-        if (topic === 'monsterpot/error/temperature') {
+        if (topic === MQTT_TOPICS.ERROR_TEMPERATURE) {
             const now = new Date();
             await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'highTemperature' });
         }
 
-        if (topic === 'monsterpot/error/water-level') {
+        if (topic === MQTT_TOPICS.ERROR_WATER_LEVEL) {
             const now = new Date();
             await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'lowWaterLevel' });
         }

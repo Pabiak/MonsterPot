@@ -18,7 +18,7 @@ import './HomePage.scss';
 
 const HomePage = () => {
   const { t } = useTranslation();
-  const { data, isLoading, isError, error, refetch} = useGetSensorsData();
+  const { data, isLoading, isError, error, refetch, isFetching} = useGetSensorsData();
   const { data: latestSensorsData } = useGetLatestSensorsData();
 
   const { data: lastWateringData } = useGetLastWatering();
@@ -41,7 +41,7 @@ const HomePage = () => {
           <Parameter type={PARAMETER_TYPES.TEMPERATURE} value={`${data?.temperature || latestSensorsData?.temperature}°C`} />
         </div>
         <div className="home-page__card__button">
-          <Button text={isLoading ? <Spinner /> : t('homePage.getCurrentData')} onClick={refetch} />
+          <Button text={isLoading || isFetching ? <Spinner /> : t('homePage.getCurrentData')} onClick={refetch} />
         </div>
         {isError && <div className="home-page__error">{error?.message}</div>}
       </div>

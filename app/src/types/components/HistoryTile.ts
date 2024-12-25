@@ -7,3 +7,10 @@ export interface IHistoryTileProps {
   time: string;
   date: string;
 }
+
+export interface IHistoryTile {
+  _id: string;
+  type: HISTORY_TILE_TYPE;
+  date: string;
+  message: string;
+}

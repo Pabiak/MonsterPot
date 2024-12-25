@@ -1,18 +1,30 @@
 import mongoose from 'mongoose';
 
-const HistorySchema = new mongoose.Schema({
-    type: {
-        type: String,
-        required: true,
+const HistorySchema = new mongoose.Schema(
+    {
+        type: {
+            type: String,
+            required: true,
+        },
+        date: {
+            type: Date,
+            required: true,
+        },
+        message: {
+            type: String,
+        },
     },
-    date: {
-        type: Date,
-        required: true,
+    { timestamps: true }
+);
+
+HistorySchema.set('toJSON', {
+    transform: (doc, ret) => {
+        delete ret.__v;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+        return ret;
     },
-    message: {
-        type: String,
-    },
-}, { timestamps: true });
+});
 
 const History = mongoose.model('History', HistorySchema);
 

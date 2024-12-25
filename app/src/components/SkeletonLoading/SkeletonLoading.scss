@@ -1,0 +1,31 @@
+.skeleton-loading__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  
+    &--row {
+      flex-direction: row;
+    }
+  }
+  
+  .skeleton-loading__bar {
+    height: 20px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite linear;
+    border-radius: 8px;
+  
+    &--row {
+      flex: 1;
+    }
+  }
+  
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
