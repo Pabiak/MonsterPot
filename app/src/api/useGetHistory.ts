@@ -11,7 +11,6 @@ const useGetHistory = () => {
 
       return response.data;
     },
-    staleTime: 1000 * 60,
   });
 
   return { data, isLoading, isError, error };
