@@ -1,6 +1,13 @@
 {
   "common": {
-    "notificationSent": "Notification sent"
+    "notificationSent": "Notification sent",
+    "dataFetched": "Successfully fetched sensor data",
+    "errorFetchingHistoryData": "Failed to fetch history data",
+    "errorFetchingStatisticsData": "Failed to fetch statistics data",
+    "errorFetchingSensorsData": "Failed to fetch sensor data",
+    "errorFetchingWateringsData": "Failed to fetch waterings number data",
+    "errorFetchingTemperatureData": "Failed to fetch temperature data",
+    "errorFetchingLastWateringData": "Failed to fetch last watering data"
   },
   "parameter": {
     "humidity": "Humidity",

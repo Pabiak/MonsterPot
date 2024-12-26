@@ -1,20 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
+
 import axiosInstance from '@/utility/axiosInstance';
+import useHandleQueryError from '@/hooks/useHandleQueryError';
 
 const useGetLastWatering = () => {
-  const { isPending, error, data } = useQuery({
+  const { handleError } = useHandleQueryError();
+
+  const { isPending, isError, error, data } = useQuery({
     queryKey: ['last-watering'],
     queryFn: async ({ signal }) => {
-      const response = await axiosInstance.get(`/sensors/last-watering`, {
-        signal,
-      });
+      try {
+        const response = await axiosInstance.get(`/sensors/last-watering`, {
+          signal,
+        });
 
-      return response.data;
+        return response.data;
+      } catch (error: any) {
+        handleError(error, 'common.errorFetchingLastWateringData');
+      }
     },
     staleTime: 1000 * 60,
   });
 
-  return { isPending, error, data };
+  return { isPending, isError, error, data };
 };
 
 export default useGetLastWatering;

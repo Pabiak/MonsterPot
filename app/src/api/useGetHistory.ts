@@ -1,15 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
+
 import axiosInstance from '@/utility/axiosInstance';
+import useHandleQueryError from '@/hooks/useHandleQueryError';
 
 const useGetHistory = () => {
+  const { handleError } = useHandleQueryError();
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['history'],
-    queryFn: async ({ signal }) => {
-      const response = await axiosInstance.get(`/sensors/history`, {
-        signal,
-      });
+    retry: false,
 
-      return response.data;
+    queryFn: async ({ signal }) => {
+      try {
+        const response = await axiosInstance.get(`/sensors/history`, {
+          signal,
+        });
+
+        return response.data;
+      } catch (error: any) {
+        handleError(error, 'common.errorFetchingHistoryData');
+      }
     },
   });
 

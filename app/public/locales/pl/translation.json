@@ -1,6 +1,13 @@
 {
   "common": {
-    "notificationSent": "Powiadomienie wysłane"
+    "notificationSent": "Powiadomienie wysłane",
+    "dataFetched": "Pomyślnie pobrano dane z czujników",
+    "errorFetchingHistoryData": "Nie udało się pobrać danych historii",
+    "errorFetchingStatisticsData": "Nie udało się pobrać danych statystyk",
+    "errorFetchingSensorsData": "Nie udało się pobrać danych z czujników",
+    "errorFetchingWateringsData": "Nie udało się pobrać danych o liczbie nawodnień",
+    "errorFetchingTemperatureData": "Nie udało się pobrać danych temperatury",
+    "errorFetchingLastWateringData": "Nie udało się pobrać danych ostatniego nawodnienia"
   },
   "parameter": {
     "humidity": "Wilgotność",

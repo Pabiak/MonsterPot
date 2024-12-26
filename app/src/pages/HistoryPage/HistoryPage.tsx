@@ -20,7 +20,6 @@ const HistoryPage = () => {
     <div className="history-page">
       <span className="history-page__title">{t('historyPage.title')}</span>
       <div className="history-page__container">
-        {/* TODO: error handling */}
         {isLoading ? (
           <SkeletonLoading width="100%" height="76px" elementsNumber={4} />
         ) : (
