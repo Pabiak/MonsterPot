@@ -17,4 +17,5 @@ body {
   background-color: $color-primary;
   touch-action: none;
   scroll-behavior: none;
+  overflow-x: hidden;
 }
