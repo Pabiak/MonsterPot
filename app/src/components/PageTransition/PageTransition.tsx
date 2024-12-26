@@ -10,7 +10,7 @@ const PageTransition = ({ children }: IPageTransitionProps) => {
       initial={{ y: '100%', opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '100%', opacity: 0 }}
-      transition={{ duration: 0.5, ease: 'easeInOut' }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
       style={{ height: '100dvh'}}
     >
       {children}
