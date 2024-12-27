@@ -11,7 +11,7 @@ const PageTransition = ({ children }: IPageTransitionProps) => {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '100%', opacity: 0 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      style={{ height: '100dvh'}}
+      style={ { height: "100dvh", zIndex: 0 } }
     >
       {children}
     </motion.div>
