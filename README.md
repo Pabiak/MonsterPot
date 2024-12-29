@@ -21,29 +21,27 @@
 
 ## Screenshots
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px; width: 100%;">
+<table style="width:100%; text-align:center;">
+  <tr>
+    <td style="vertical-align:top;">
+      <img src="./images/home.png" alt="Main Application Screen" style="width:150px; height:auto;" />
+      <p>Main Application Screen</p>
+    </td>
+    <td style="vertical-align:top;">
+      <img src="./images/history.png" alt="History Section" style="width:150px; height:auto;" />
+      <p>History Section</p>
+    </td>
+    <td style="vertical-align:top;">
+      <img src="./images/statistics.png" alt="Statistics Section" style="width:150px; height:auto;" />
+      <p>Statistics Section</p>
+    </td>
+    <td style="vertical-align:top;">
+      <img src="./images/email.png" alt="Email Alert" style="width:150px; height:auto;" />
+      <p>Email Alert</p>
+    </td>
+  </tr>
+</table>
 
-<div style="text-align: center;">
-  <img src="./images/home.png" alt="Main Application Screen" style="width: 100%; max-width: 250px; border: 1px solid #ccc; border-radius: 5px;" />
-  <p>Main Application Screen</p>
-</div>
-
-<div style="text-align: center;">
-  <img src="./images/history.png" alt="History Section" style="width: 100%; max-width: 250px; border: 1px solid #ccc; border-radius: 5px;" />
-  <p>History Section</p>
-</div>
-
-<div style="text-align: center;">
-  <img src="./images/statistics.png" alt="Statistics Section" style="width: 100%; max-width: 250px; border: 1px solid #ccc; border-radius: 5px;" />
-  <p>Statistics Section</p>
-</div>
-
-<div style="text-align: center;">
-  <img src="./images/email.png" alt="Email Alert" style="width: 100%; max-width: 250px; border: 1px solid #ccc; border-radius: 5px;" />
-  <p>Email Alert</p>
-</div>
-
-</div>
 
 
 ---
