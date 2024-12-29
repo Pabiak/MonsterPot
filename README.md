@@ -54,28 +54,29 @@
    ```bash
    git clone git@github.com:Pabiak/MonsterPot.git
    ```
-2. **Install Dependencies for the Application: Navigate to the App folder and install dependencies:**
+2. **Install Dependencies for the Application**: 
+    Navigate to the App folder and install dependencies:
     ``` bash
     cd app
     pnpm install
     ```
 3. **Setup your MongoDB and MQTT broker**
 
-4. **In server/.env provide your credentials (current ones does not work anymore)**
+4. **In server/.env provide your credentials** (current ones does not work anymore)
 
-5. **Install Dependencies for the Server: Navigate to the Server folder and install dependencies:**
+5. **Install Dependencies for the Server**: Navigate to the Server folder and install dependencies:
     ``` bash
     cd server
     pnpm install
     ```
 
-6. **Configure Firmware: In firmware/monsterpot.ino, provide your Wi-Fi credentials and MQTT broker details**
+6. **Configure Firmware**: In firmware/monsterpot.ino, provide your Wi-Fi credentials and MQTT broker details
 
-7. **Use the provided sketch and documentation to assemble the hardware components of the MonsterPot device.**
+7. **Assemble the hardware components** Use the provided sketch and documentation to assemble the hardware components of the MonsterPot device.
 
 8. **Upload the firmware/monsterpot.ino code to your microcontroller with Wi-Fi support using the Arduino IDE or another compatible tool.**
 
-9. **Run the Application: In separate terminals, run the following commands to start both the app and the server:**
+9. **Run the Application**: In separate terminals, run the following commands to start both the app and the server:
     ```bash
         # Start the server
         cd server
