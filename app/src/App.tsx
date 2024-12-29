@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+
 import Navbar from '@/components/Navbar/Navbar';
 import HomePage from '@/pages/HomePage/HomePage';
 import HistoryPage from '@/pages/HistoryPage/HistoryPage';
 import StatisticsPage from '@/pages/StatisticsPage/StatisticsPage';
-import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
   const location = useLocation();

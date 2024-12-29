@@ -1,8 +1,12 @@
 import mqttClient from '../utils/mqttClient';
+import { sendEmail } from '../utils/mailHandler';
+
 import Watering from '../models/Watering';
-import HISTORY_TYPE from '../types/HistoryType';
 import History from '../models/History';
+
+import HISTORY_TYPE from '../types/HistoryType';
 import MQTT_TOPICS from '../types/enums/MqttTopics';
+import ALERTS from '../types/enums/Alerts';
 
 export const mqttRequest = (publishTopic: string, responseTopic: string, timeoutMs = 5000) => {
     return new Promise((resolve, reject) => {
@@ -52,11 +56,13 @@ export const listenToMQTTMessages = () => {
         if (topic === MQTT_TOPICS.ERROR_TEMPERATURE) {
             const now = new Date();
             await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'highTemperature' });
+            await sendEmail(ALERTS.TEMPERATURE);
         }
 
         if (topic === MQTT_TOPICS.ERROR_WATER_LEVEL) {
             const now = new Date();
             await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'lowWaterLevel' });
+            await sendEmail(ALERTS.LOW_WATER_LEVEL);
         }
       } catch (error) {
         console.error('Error handling MQTT message:', error);
