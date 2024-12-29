@@ -18,13 +18,13 @@ import getFormattedDate from '@/helpers/formatDate';
 import './HomePage.scss';
 
 const HomePage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data, isLoading, isFetching, refetch} = useGetSensorsData();
   const { data: latestSensorsData } = useGetLatestSensorsData();
 
   const { data: lastWateringData } = useGetLastWatering();
 
-  const [date, time] = getFormattedDate(lastWateringData?.watering.date) || ["", ""];
+  const [date, time] = getFormattedDate(lastWateringData?.watering.date, i18n.language) || ["", ""];
 
   return (
     <PageTransition>
