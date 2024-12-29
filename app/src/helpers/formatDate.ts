@@ -1,13 +1,13 @@
-const getFormattedDate = (date: string) => {
+const getFormattedDate = (date: string, language: string) => {
   if (!date) return null;
 
-  const formattedDate = new Date(date).toLocaleDateString('pl-PL', {
+  const formattedDate = new Date(date).toLocaleDateString(language === "pl" ? "pl-PL" : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 
-  const formattedTime = new Date(date).toLocaleTimeString('pl-PL', {
+  const formattedTime = new Date(date).toLocaleTimeString(language === "pl" ? "pl-PL" : 'en-US', {
     hour: '2-digit',
     minute: '2-digit',
   });

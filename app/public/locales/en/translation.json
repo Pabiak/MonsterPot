@@ -25,7 +25,11 @@
     "getCurrentData": "Get current data"
   },
   "historyPage": {
-    "title": "History"
+    "title": "History",
+    "completed": "Completed successfully",
+    "lowWaterLevel": "Low water level",
+    "highTemperature": "High temperature",
+    "wateringCompleted": "Watering completed"
   },
   "statisticsPage": {
     "title": "Statistics",

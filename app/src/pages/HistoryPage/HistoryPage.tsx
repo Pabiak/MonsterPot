@@ -14,7 +14,7 @@ import getFormattedDate from '@/helpers/formatDate';
 import './HistoryPage.scss';
 
 const HistoryPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data, isLoading } = useGetHistory();
 
   return (
@@ -38,8 +38,8 @@ const HistoryPage = () => {
                       ? t('common.notificationSent')
                       : t('historyPage.completed')
                   }
-                  date={getFormattedDate(historyItem.date)?.[0] || ''}
-                  time={getFormattedDate(historyItem.date)?.[1] || ''}
+                  date={getFormattedDate(historyItem.date, i18n.language)?.[0] || ''}
+                  time={getFormattedDate(historyItem.date, i18n.language)?.[1] || ''}
                 />
               ))
           )}

@@ -18,7 +18,7 @@ import getFormattedDate from '@/helpers/formatDate';
 import './StatisticsPage.scss';
 
 const StatisticsPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data: temperatureData, isPending: isTemperaturePending } =
     useGetAvgTemperature();
@@ -27,7 +27,7 @@ const StatisticsPage = () => {
   const { data: numberOfWaterings, isPending: isWateringsNumberPending } =
     useGetNumberOfWaterings();
 
-  const [date, time] = getFormattedDate(lastWateringData?.watering.date) || [
+  const [date, time] = getFormattedDate(lastWateringData?.watering.date, i18n.language) || [
     '',
     '',
   ];
