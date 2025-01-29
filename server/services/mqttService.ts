@@ -3,6 +3,9 @@ import { sendEmail } from '../utils/mailHandler';
 
 import Watering from '../models/Watering';
 import History from '../models/History';
+import Humidity from '../models/Humidity';
+import Temperature from '../models/Temperature';
+import Light from '../models/Light';
 
 import HISTORY_TYPE from '../types/HistoryType';
 import MQTT_TOPICS from '../types/enums/MqttTopics';
@@ -63,6 +66,16 @@ export const listenToMQTTMessages = () => {
             const now = new Date();
             await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'lowWaterLevel' });
             await sendEmail(ALERTS.LOW_WATER_LEVEL);
+        }
+
+        if (topic === MQTT_TOPICS.SENSORS) {
+            const data = JSON.parse(message.toString());
+            const now = new Date();
+            await Promise.all([
+                Humidity.create({ value: data.humidity, date: now }),
+                Temperature.create({ value: data.temperature, date: now }),
+                Light.create({ value: data.light, date: now }),
+            ]);
         }
       } catch (error) {
         console.error('Error handling MQTT message:', error);

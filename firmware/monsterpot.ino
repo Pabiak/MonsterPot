@@ -91,6 +91,21 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
+void getSensorsData() {
+  StaticJsonDocument<256> jsonDoc;
+  //TODO: read sensors data
+  jsonDoc["humidity"] = "90";
+  jsonDoc["temperature"] = "99";
+  jsonDoc["light"] = "99";
+
+  char jsonBuffer[256];
+  serializeJson(jsonDoc, jsonBuffer);
+
+  client.publish("monsterpot/sensors", jsonBuffer);
+  Serial.println("Response published: ");
+  Serial.println(jsonBuffer);
+}
+
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
@@ -103,17 +118,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   // Sprawdzenie, czy temat to "monsterpot/request/sensors"
   if (String(topic) == "monsterpot/request/sensors") {
     Serial.println("wyslano zapytania o stan czujnikow");
-    StaticJsonDocument<256> jsonDoc;
-    jsonDoc["humidity"] = "90";
-    jsonDoc["temperature"] = "99";
-    jsonDoc["light"] = "99";
-
-    char jsonBuffer[256];
-    serializeJson(jsonDoc, jsonBuffer);
-
-    client.publish("monsterpot/sensors", jsonBuffer);
-    Serial.println("Response published: ");
-    Serial.println(jsonBuffer);
+    getSensorsData();
   }
 }
 
