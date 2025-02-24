@@ -30,6 +30,7 @@ const int soilMoisturePin = A0;
 const int pumpPin = 12;
 
 int waterLevel = 0;
+unsigned long previousMillis = 0;
 
 OneWire oneWire(temperaturePin);
 DallasTemperature temperatureSensor(&oneWire);
@@ -116,12 +117,12 @@ void startWatering() {
   client.publish("monsterpot/watering", "watering complete");
 }
 
-int maxTemperature  = 25;
-int maxLight = 1000;
-
 void getSensorsData() {
   int maxHumidityValue = 1023;
   int minHumidityValue = 223;
+
+  int maxTemperature  = 25;
+  int maxLight = 1000;
 
   temperatureSensor.requestTemperatures(); 
   double celcius = temperatureSensor.getTempCByIndex(0);
@@ -315,8 +316,6 @@ void setup() {
   TSL2561.init();
   Serial.println("5 sekund ");
 }
-
-unsigned long previousMillis = 0;
 
 void loop() {
   if (!client.connected()) {

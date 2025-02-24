@@ -68,6 +68,12 @@ export const listenToMQTTMessages = () => {
             await sendEmail(ALERTS.LOW_WATER_LEVEL);
         }
 
+        if (topic === MQTT_TOPICS.ERROR_LIGHT) {
+            const now = new Date();
+            await History.create({ date: now, type: HISTORY_TYPE.ERROR, message: 'toHighLightIntensity' });
+            await sendEmail(ALERTS.LIGHT);
+        }
+
         if (topic === MQTT_TOPICS.SENSORS) {
             const data = JSON.parse(message.toString());
             const now = new Date();

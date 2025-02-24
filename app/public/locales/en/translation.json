@@ -29,6 +29,7 @@
     "completed": "Completed successfully",
     "lowWaterLevel": "Low water level",
     "highTemperature": "High temperature",
+    "toHighLightIntensity": "High light intensity",
     "wateringCompleted": "Watering completed"
   },
   "statisticsPage": {

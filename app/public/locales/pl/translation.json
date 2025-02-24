@@ -29,6 +29,7 @@
     "completed": "Zakończone sukcesem",
     "lowWaterLevel": "Niski poziom wody",
     "highTemperature": "Zbyt wysoka temperatura",
+    "toHighLightIntensity": "Za duzo światła",
     "wateringCompleted": "Nawodnienie zakończone"
   },
   "statisticsPage": {
