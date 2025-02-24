@@ -14,17 +14,8 @@ const HistorySchema = new mongoose.Schema(
             type: String,
         },
     },
-    { timestamps: true }
+    { timestamps: false, versionKey: false }
 );
-
-HistorySchema.set('toJSON', {
-    transform: (doc, ret) => {
-        delete ret.__v;
-        delete ret.createdAt;
-        delete ret.updatedAt;
-        return ret;
-    },
-});
 
 const History = mongoose.model('History', HistorySchema);
 

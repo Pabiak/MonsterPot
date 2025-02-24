@@ -9,16 +9,7 @@ const TemperatureSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-}, { timestamps: true });
-
-TemperatureSchema.set('toJSON', {
-    transform: (doc, ret) => {
-        delete ret.__v;
-        delete ret.createdAt;
-        delete ret.updatedAt;
-        return ret;
-    },
-});
+}, { timestamps: false, versionKey: false });
 
 const Temperature = mongoose.model('Temperature', TemperatureSchema);
 

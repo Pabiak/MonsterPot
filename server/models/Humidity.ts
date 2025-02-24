@@ -9,16 +9,8 @@ const HumiditySchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-}, { timestamps: true });
+}, { timestamps: false, versionKey: false });
 
-HumiditySchema.set('toJSON', {
-    transform: (doc, ret) => {
-        delete ret.__v;
-        delete ret.createdAt;
-        delete ret.updatedAt;
-        return ret;
-    },
-});
 const Humidity = mongoose.model('Humidity', HumiditySchema);
 
 export default Humidity;

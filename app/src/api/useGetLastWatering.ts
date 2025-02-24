@@ -10,7 +10,7 @@ const useGetLastWatering = () => {
     queryKey: ['last-watering'],
     queryFn: async ({ signal }) => {
       try {
-        const response = await axiosInstance.get(`/sensors/last-watering`, {
+        const response = await axiosInstance.get(`/sensors/waterings/latest`, {
           signal,
         });
 

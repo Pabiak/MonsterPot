@@ -1,19 +1,38 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include <Wire.h>
+#include <Digital_Light_TSL2561.h>
+#include <DHT.h>
 
-//---- WiFi settings
-const char* ssid = "Wiktor hotspot";
-const char* password = "W!ktor313";
+#define NO_TOUCH       0xFE
+#define THRESHOLD      100
+#define ATTINY1_HIGH_ADDR   0x78
+#define ATTINY2_LOW_ADDR   0x77
 
-//---- HiveMQ Cloud Broker settings
+unsigned char low_data[8] = {0};
+unsigned char high_data[12] = {0};
+
+const char* ssid = "TP-Link_9B88";
+const char* password = "94398670";
+
 const char* mqtt_server = "cdecc7ba2d894bf9ae21df95c7c8a10b.s1.eu.hivemq.cloud";
 const char* mqtt_user = "pabiak";
 const char* mqtt_password = "Xt*Go7YkilFp2n";
 
 BearSSL::WiFiClientSecure espClient;
 PubSubClient client(espClient);
-int value = 0;
+
+const int temperaturePin = 4; // D2
+const int soilMoisturePin = A0;
+const int pumpPin = 12;
+
+int waterLevel = 0;
+
+OneWire oneWire(temperaturePin);
+DallasTemperature temperatureSensor(&oneWire);
 
 // HiveMQ Cloud Let's Encrypt CA certificate (hardcoded)
 static const char ca_cert[] PROGMEM = R"EOF(
@@ -50,8 +69,7 @@ emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
 -----END CERTIFICATE-----
 )EOF";
 
-void setClock()
-{
+void setClock() {
   configTime(3 * 3600, 0, "pool.ntp.org", "time.nist.gov");
 
   Serial.print("Waiting for NTP time sync: ");
@@ -70,7 +88,7 @@ void setClock()
 
 void setup_wifi() {
   delay(10);
-  // We start by connecting to a WiFi network
+
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -91,12 +109,33 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
+void startWatering() {
+  digitalWrite(pumpPin, HIGH);
+  delayMicroseconds(5000);
+  digitalWrite(pumpPin, LOW);
+  client.publish("monsterpot/watering", "watering complete");
+}
+
+int maxTemperature  = 25;
+int maxLight = 1000;
+
 void getSensorsData() {
+  int maxHumidityValue = 1023;
+  int minHumidityValue = 223;
+
+  temperatureSensor.requestTemperatures(); 
+  double celcius = temperatureSensor.getTempCByIndex(0);
+  int light = TSL2561.readVisibleLux();
+  int humidity = analogRead(soilMoisturePin);
+  int humidityPercent = 100 - map(humidity, minHumidityValue, maxHumidityValue, 0, 100);
+  humidityPercent = constrain(humidityPercent, 0, 100);
+
+  Serial.println(humidityPercent);
+
   StaticJsonDocument<256> jsonDoc;
-  //TODO: read sensors data
-  jsonDoc["humidity"] = "90";
-  jsonDoc["temperature"] = "99";
-  jsonDoc["light"] = "99";
+  jsonDoc["humidity"] = String(humidityPercent);
+  jsonDoc["temperature"] = String(celcius, 2);
+  jsonDoc["light"] = String(light);
 
   char jsonBuffer[256];
   serializeJson(jsonDoc, jsonBuffer);
@@ -104,20 +143,31 @@ void getSensorsData() {
   client.publish("monsterpot/sensors", jsonBuffer);
   Serial.println("Response published: ");
   Serial.println(jsonBuffer);
+
+  if (celcius > maxTemperature) {
+    client.publish("monsterpot/error/temperature", "to hight temperature");
+  }
+
+  if (light > maxLight) {
+    client.publish("monsterpot/error/light", "to hight light intensity");
+  }
+
+  if (humidityPercent < 30 && waterLevel > 20) {
+    startWatering();
+  }
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
+
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
 
-  // Sprawdzenie, czy temat to "monsterpot/request/sensors"
   if (String(topic) == "monsterpot/request/sensors") {
-    Serial.println("wyslano zapytania o stan czujnikow");
     getSensorsData();
   }
 }
@@ -125,15 +175,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void reconnect() {
   char err_buf[256];
   
-  // Loop until we're reconnected
   while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    // MQTT client ID
+    Serial.print("Attempting MQTT connection..x.");
     String clientId = "ESP8266Client";
-    // Attempt to connect
+
     if (client.connect(clientId.c_str(), mqtt_user, mqtt_password)) {
       Serial.println("connected");
-      // Once connected, publish an announcement...
       client.subscribe("monsterpot/request/sensors");
 
     } else {
@@ -143,9 +190,113 @@ void reconnect() {
       Serial.print("SSL error: ");
       Serial.println(err_buf);
       Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
       delay(5000);
     }
+  }
+}
+
+void getHigh12SectionValue() {
+  memset(high_data, 0, sizeof(high_data));
+  Wire.requestFrom(ATTINY1_HIGH_ADDR, 12);
+  while (12 != Wire.available());
+
+  for (int i = 0; i < 12; i++) {
+    high_data[i] = Wire.read();
+  }
+  delay(10);
+}
+
+void getLow8SectionValue() {
+  memset(low_data, 0, sizeof(low_data));
+  Wire.requestFrom(ATTINY2_LOW_ADDR, 8);
+
+  while (8 != Wire.available());
+
+  for (int i = 0; i < 8 ; i++) {
+    low_data[i] = Wire.read();
+  }
+  delay(10);
+}
+
+void checkWaterLevel() {
+  int sensorvalue_min = 250;
+  int sensorvalue_max = 255;
+  int low_count = 0;
+  int high_count = 0;
+
+  while (true) {
+    uint32_t touch_val = 0;
+    uint8_t trig_section = 0;
+    low_count = 0;
+    high_count = 0;
+    getLow8SectionValue();
+    getHigh12SectionValue();
+
+    Serial.println("low 8 sections value = ");
+
+    for (int i = 0; i < 8; i++) {
+      Serial.print(low_data[i]);
+      Serial.print(".");
+
+      if (low_data[i] >= sensorvalue_min && low_data[i] <= sensorvalue_max) {
+        low_count++;
+      }
+
+      if (low_count == 8) {
+        Serial.print("      ");
+        Serial.print("PASS");
+      }
+    }
+
+    Serial.println("  ");
+    Serial.println("  ");
+    Serial.println("high 12 sections value = ");
+
+    for (int i = 0; i < 12; i++) {
+      Serial.print(high_data[i]);
+      Serial.print(".");
+
+      if (high_data[i] >= sensorvalue_min && high_data[i] <= sensorvalue_max) {
+        high_count++;
+      }
+
+      if (high_count == 12) {
+        Serial.print("      ");
+        Serial.print("PASS");
+      }
+    }
+
+    Serial.println("  ");
+    Serial.println("  ");
+
+    for (int i = 0 ; i < 8; i++) {
+      if (low_data[i] > THRESHOLD) {
+        touch_val |= 1 << i;
+
+      }
+    }
+    for (int i = 0 ; i < 12; i++) {
+      if (high_data[i] > THRESHOLD) {
+        touch_val |= (uint32_t)1 << (8 + i);
+      }
+    }
+
+    while (touch_val & 0x01) {
+      trig_section++;
+      touch_val >>= 1;
+    }
+
+    if (trig_section * 5 <= 20) {
+      client.publish("monsterpot/error/water-level", "low water level");
+    }
+
+    Serial.print("water level = ");
+    Serial.print(trig_section * 5);
+    Serial.println("% ");
+    Serial.println(" ");
+    Serial.println("*********************************************************");
+    waterLevel = trig_section * 5;
+    delay(1000);
   }
 }
 
@@ -157,11 +308,27 @@ void setup() {
   setClock(); // Required for X.509 validation
   client.setServer(mqtt_server, 8883);
   client.setCallback(callback);
+
+  // sensors
+  temperatureSensor.begin();
+  Wire.begin();
+  TSL2561.init();
+  Serial.println("5 sekund ");
 }
+
+unsigned long previousMillis = 0;
 
 void loop() {
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
+  checkWaterLevel();
+
+  unsigned long currentMillis = millis();
+
+    if (currentMillis - previousMillis >= 1000 * 60 * 5) {
+        previousMillis = currentMillis;
+        getSensorsData();
+    }
 }

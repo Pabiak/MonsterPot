@@ -9,16 +9,7 @@ const LightSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-}, { timestamps: true });
-
-LightSchema.set('toJSON', {
-    transform: (doc, ret) => {
-        delete ret.__v;
-        delete ret.createdAt;
-        delete ret.updatedAt;
-        return ret;
-    },
-});
+}, { timestamps: false, versionKey: false });
 
 const Light = mongoose.model('Light', LightSchema);
 
