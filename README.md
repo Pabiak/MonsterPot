@@ -62,7 +62,7 @@
     ```
 3. **Setup your MongoDB and MQTT broker**
 
-4. **In server/.env provide your credentials** (current ones does not work anymore)
+4. **In server/.env provide your credentials** (current ones don't work anymore)
 
 5. **Install Dependencies for the Server**: Navigate to the Server folder and install dependencies:
     ``` bash
